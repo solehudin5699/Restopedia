@@ -33,6 +33,7 @@ class MenuCard extends StatelessWidget {
                 name,
                 style: const TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
+                maxLines: 2,
               ),
             ),
           ],
