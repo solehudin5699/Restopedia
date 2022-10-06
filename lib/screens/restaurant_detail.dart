@@ -175,49 +175,6 @@ class RestaurantDetail extends StatelessWidget {
                         ),
                         textAlign: TextAlign.left,
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      // const Text(
-                      //   "Makanan : ",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w600,
-                      //     fontSize: 14,
-                      //     color: Color.fromARGB(255, 104, 94, 86),
-                      //   ),
-                      //   textAlign: TextAlign.left,
-                      // ),
-
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.stretch,
-                      //   children: data.menus.foods.asMap().entries.map((e) {
-                      //     int index = e.key;
-                      //     String name = e.value.name;
-                      //     return Text('${index + 1}. $name');
-                      //   }).toList(),
-                      // ),
-                      // const SizedBox(
-                      //   height: 15,
-                      // ),
-
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.stretch,
-                      //   children: data.menus.drinks.asMap().entries.map((e) {
-                      //     int index = e.key;
-                      //     String name = e.value.name;
-                      //     return Text('${index + 1}. $name');
-                      //   }).toList(),
-                      // ),
-                      // Expanded(
-                      //   child: ListView.builder(
-                      //     itemBuilder: (context, index) {
-                      //       return const Image(
-                      //         image: AssetImage('assets/images/drink_icon.png'),
-                      //       );
-                      //     },
-                      //     itemCount: 5,
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
