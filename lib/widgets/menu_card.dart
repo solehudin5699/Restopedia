@@ -21,7 +21,7 @@ class MenuCard extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Image.asset(icon),
             ),
             const SizedBox(

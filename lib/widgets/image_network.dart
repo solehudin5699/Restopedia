@@ -18,7 +18,7 @@ class ImageNetwork extends StatelessWidget {
       fit: fit,
       errorBuilder: (context, error, strakTrace) {
         return Container(
-          color: const Color.fromARGB(255, 255, 65, 59),
+          color: const Color.fromARGB(10, 255, 65, 59),
           child: const Icon(
             Icons.image_not_supported_outlined,
             color: Color.fromARGB(255, 255, 65, 59),

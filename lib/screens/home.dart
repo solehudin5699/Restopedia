@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: false,
         elevation: 0,
         title: const Text(
-          'RestoPedia',
+          'Restopedia',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 35,
