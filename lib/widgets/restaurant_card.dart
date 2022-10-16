@@ -20,6 +20,7 @@ class RestaurantCard extends StatelessWidget {
       elevation: 3,
       clipBehavior: Clip.none,
       child: InkWell(
+        borderRadius: BorderRadius.circular(10),
         onTap: (() {
           Navigator.pushNamed(context, '/restaurantDetail', arguments: data);
         }),
