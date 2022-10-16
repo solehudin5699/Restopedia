@@ -7,6 +7,7 @@ import 'package:restaurant_app/provider/restaurant.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/widgets/loading_indicator.dart';
 import 'package:restaurant_app/widgets/restaurant_card.dart';
+import 'package:restaurant_app/widgets/slide_transition_container.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -152,8 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisCount: 1,
               itemCount: state.restaurantList.restaurants.length,
               itemBuilder: (context, index) {
-                return RestaurantCard(
-                  data: state.restaurantList.restaurants[index],
+                return SlideTransitionContainer(
+                  child: RestaurantCard(
+                    data: state.restaurantList.restaurants[index],
+                  ),
                 );
               },
             );

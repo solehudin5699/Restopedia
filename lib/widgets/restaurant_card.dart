@@ -35,8 +35,11 @@ class RestaurantCard extends StatelessWidget {
                   topLeft: Radius.circular(10.0),
                   bottomLeft: Radius.circular(10.0),
                 ),
-                child: ImageNetwork(
-                  src: ApiService().imageBaseUrl(pictureId: data.pictureId),
+                child: Hero(
+                  tag: data.pictureId,
+                  child: ImageNetwork(
+                    src: ApiService().imageBaseUrl(pictureId: data.pictureId),
+                  ),
                 ),
               ),
             ),

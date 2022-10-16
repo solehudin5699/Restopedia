@@ -12,6 +12,7 @@ import 'package:restaurant_app/widgets/loading_indicator.dart';
 import 'package:restaurant_app/widgets/menu_card.dart';
 import 'package:restaurant_app/widgets/ratings.dart';
 import 'package:restaurant_app/widgets/review_card.dart';
+import 'package:restaurant_app/widgets/scale_transition_container.dart';
 
 class RestaurantDetail extends StatelessWidget {
   const RestaurantDetail({Key? key, required this.data}) : super(key: key);
@@ -70,7 +71,8 @@ class RestaurantDetailScreen extends StatelessWidget {
           ),
           image: DecorationImage(
             image: NetworkImage(
-                ApiService().imageBaseUrl(pictureId: data.pictureId)),
+              ApiService().imageBaseUrl(pictureId: data.pictureId),
+            ),
             fit: BoxFit.cover,
           ),
           borderRadius: const BorderRadius.only(
@@ -171,11 +173,14 @@ class RestaurantDetailScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: ImageNetwork(
-                    src: ApiService().imageBaseUrl(
-                      pictureId: data.pictureId,
+                Hero(
+                  tag: data.pictureId,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: ImageNetwork(
+                      src: ApiService().imageBaseUrl(
+                        pictureId: data.pictureId,
+                      ),
                     ),
                   ),
                 ),
@@ -298,17 +303,21 @@ class RestaurantDetailScreen extends StatelessWidget {
                 children: [
                   ...state.restaurantDetail.restaurant.menus.foods.map(
                     (e) {
-                      return MenuCard(
-                        name: e.name,
-                        icon: 'assets/images/food_icon.png',
+                      return ScaleTransitionContainer(
+                        child: MenuCard(
+                          name: e.name,
+                          icon: 'assets/images/food_icon.png',
+                        ),
                       );
                     },
                   ).toList(),
                   ...state.restaurantDetail.restaurant.menus.drinks.map(
                     (e) {
-                      return MenuCard(
-                        name: e.name,
-                        icon: 'assets/images/drink_icon.png',
+                      return ScaleTransitionContainer(
+                        child: MenuCard(
+                          name: e.name,
+                          icon: 'assets/images/drink_icon.png',
+                        ),
                       );
                     },
                   ).toList()
