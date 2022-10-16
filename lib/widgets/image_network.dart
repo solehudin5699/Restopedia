@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ImageNetwork extends StatelessWidget {
   final String src;
   BoxFit? fit = BoxFit.cover;

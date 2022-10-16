@@ -38,7 +38,7 @@ class Ratings extends StatelessWidget {
       return Row(
         children: const [
           Icon(
-            Icons.star,
+            Icons.star_border_outlined,
             size: 14,
             color: Color.fromARGB(255, 214, 106, 18),
           )

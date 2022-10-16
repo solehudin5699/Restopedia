@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/models/restaurants.dart';
+import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/data/models/restaurants.dart';
 import 'package:restaurant_app/widgets/image_network.dart';
 import 'package:restaurant_app/widgets/ratings.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final Restaurant data;
+  final RestaurantModel data;
   const RestaurantCard({
     Key? key,
     required this.data,
@@ -34,7 +35,9 @@ class RestaurantCard extends StatelessWidget {
                   topLeft: Radius.circular(10.0),
                   bottomLeft: Radius.circular(10.0),
                 ),
-                child: ImageNetwork(src: data.pictureId),
+                child: ImageNetwork(
+                  src: ApiService().imageBaseUrl(pictureId: data.pictureId),
+                ),
               ),
             ),
             const SizedBox(

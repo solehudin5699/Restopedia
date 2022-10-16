@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:restaurant_app/models/restaurants.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/provider/restaurant.dart';
+import 'package:restaurant_app/widgets/error_message.dart';
+import 'package:restaurant_app/widgets/loading_indicator.dart';
 import 'package:restaurant_app/widgets/restaurant_card.dart';
 
 class Home extends StatelessWidget {
@@ -9,7 +13,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //To onfocus TextField when tap outside TextField
+    //To unfocus TextField when tap outside TextField
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -18,7 +22,10 @@ class Home extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: const HomeScreen(),
+      child: ChangeNotifierProvider(
+        create: (_) => RestaurantProvider(apiServices: ApiService()),
+        child: const HomeScreen(),
+      ),
     );
   }
 }
@@ -31,14 +38,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Restaurant>> listRestaurants;
-
   final TextEditingController _controllerKeyword = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    listRestaurants = getRestaurants(context, '');
   }
 
   @override
@@ -104,31 +108,34 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(bottom: 2, left: 10),
             width: double.infinity,
             height: 40,
-            child: TextField(
-              controller: _controllerKeyword,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Cari',
-                suffixIcon: _controllerKeyword.value.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(
-                          Icons.clear,
-                        ),
-                        onPressed: () {
-                          _controllerKeyword.clear();
-                          setState(() {
-                            listRestaurants = getRestaurants(context, '');
-                          });
-                        })
-                    : const SizedBox(
-                        width: 0,
-                        height: 0,
-                      ),
-              ),
-              onChanged: (String value) {
-                setState(
-                  () {
-                    listRestaurants = getRestaurants(context, value);
+            child: Consumer<RestaurantProvider>(
+              builder: (context, state, _) {
+                return TextField(
+                  controller: _controllerKeyword,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Cari',
+                    suffixIcon: _controllerKeyword.value.text.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(
+                              Icons.clear,
+                            ),
+                            onPressed: () {
+                              _controllerKeyword.clear();
+                              state.fetchRestaurantList(null);
+                            },
+                          )
+                        : const SizedBox(
+                            width: 0,
+                            height: 0,
+                          ),
+                  ),
+                  onChanged: (String value) {
+                    if (value == '') {
+                      state.fetchRestaurantList(null);
+                    } else {
+                      state.fetchRestaurantList(value);
+                    }
                   },
                 );
               },
@@ -136,56 +143,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: FutureBuilder<List<Restaurant>>(
-        future: listRestaurants,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var data = snapshot.data;
-            if (data!.isEmpty) {
-              return Center(
-                child: SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.error_outline,
-                          size: 50,
-                          color: Color.fromARGB(255, 255, 65, 59),
-                        ),
-                        Text(
-                          'Ups...,pencarian tidak ditemukan',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromARGB(255, 255, 65, 59),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }
+      body: Consumer<RestaurantProvider>(
+        builder: (context, state, _) {
+          if (state.state == ResultState.loading) {
+            return const LoadingIndicator();
+          } else if (state.state == ResultState.hasData) {
             return MasonryGridView.count(
               crossAxisCount: 1,
-              itemCount: snapshot.data!.length,
+              itemCount: state.restaurantList.restaurants.length,
               itemBuilder: (context, index) {
-                return RestaurantCard(data: data[index]);
+                return RestaurantCard(
+                  data: state.restaurantList.restaurants[index],
+                );
               },
             );
-          } else {
-            return const Text(
-              "Tidak ada data",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+          } else if (state.state == ResultState.noData) {
+            return ErrorMessage(message: state.message);
+          } else if (state.state == ResultState.noConnection) {
+            return ErrorMessage(
+              message: state.message,
+              icon: const Icon(
+                Icons.signal_wifi_off_outlined,
+                size: 50,
                 color: Color.fromARGB(255, 255, 65, 59),
               ),
             );
+          } else {
+            return ErrorMessage(message: state.message);
           }
         },
       ),
