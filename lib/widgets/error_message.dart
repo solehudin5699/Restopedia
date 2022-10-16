@@ -27,12 +27,22 @@ class ErrorMessage extends StatelessWidget {
                     size: 50,
                     color: Color.fromARGB(255, 255, 65, 59),
                   ),
-              Text(
-                message,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Color.fromARGB(255, 255, 65, 59),
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 5,
+                  right: 5,
+                ),
+                margin: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: Text(
+                  message,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 255, 65, 59),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

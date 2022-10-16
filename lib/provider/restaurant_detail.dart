@@ -46,7 +46,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
       if (result.error) {
         _state = ResultState.noData;
         notifyListeners();
-        return _message = "Detail informasi lain tidak ditemukan";
+        return _message = "Error dalam mengambil detail informasi";
       } else {
         _state = ResultState.hasData;
         notifyListeners();
@@ -59,7 +59,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
     } catch (e) {
       _state = ResultState.error;
       notifyListeners();
-      return _message = "Detail informasi lain tidak ditemukan";
+      return _message = "Error dalam mengambil detail informasi";
     }
   }
 
