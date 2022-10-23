@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/provider/restaurant.dart';
+import 'package:restaurant_app/utils/notification_helper.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/widgets/loading_indicator.dart';
 import 'package:restaurant_app/widgets/restaurant_card.dart';
@@ -40,16 +41,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controllerKeyword = TextEditingController();
-
+  final NotificationHelper _notificationHelper = NotificationHelper();
   @override
   void initState() {
     super.initState();
+    _notificationHelper.configureSelectNotificationSubject('/restaurantDetail');
   }
 
   @override
   void dispose() {
     _controllerKeyword.dispose();
     super.dispose();
+    selectNotificationSubject.close();
   }
 
   @override
@@ -77,6 +80,24 @@ class _HomeScreenState extends State<HomeScreen> {
             fontFamily: 'DancingScript',
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.favorite_outline,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+            icon: const Icon(
+              Icons.settings_outlined,
+              color: Colors.white,
+            ),
+          ),
+        ],
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
