@@ -38,6 +38,10 @@ dependencies:
   flutter_native_splash: ^2.2.9
   http: ^0.13.5
   provider: ^6.0.3
+  flutter_local_notifications: ^12.0.2
+  android_alarm_manager_plus: ^2.1.0
+  intl: ^0.17.0
+  rxdart: ^0.27.5
 
 dev_dependencies:
   flutter_test:
