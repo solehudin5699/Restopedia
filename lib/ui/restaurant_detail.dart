@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/models/restaurants.dart';
+import 'package:restaurant_app/provider/database.dart';
 import 'package:restaurant_app/provider/restaurant_detail.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
 import 'package:restaurant_app/widgets/field_add_review.dart';
@@ -106,6 +107,45 @@ class RestaurantDetailScreen extends StatelessWidget {
             ],
           ),
         ),
+        actions: [
+          Consumer<DatabaseProvider>(
+            builder: (context, state, child) {
+              return IconButton(
+                tooltip: state.isFavouritedRestaurant(data.id)
+                    ? "Hapus dari favorit"
+                    : 'Tambahkan ke favorit',
+                onPressed: () async {
+                  if (state.isFavouritedRestaurant(data.id)) {
+                    state.removeFavouriteRestaurant(data.id);
+                  } else {
+                    state.addFavouriteRestaurant(data);
+                  }
+                },
+                icon: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      width: 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      state.isFavouritedRestaurant(data.id)
+                          ? Icons.favorite
+                          : Icons.favorite_outline,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

@@ -82,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/favouriteRestaurant');
+            },
             icon: const Icon(
               Icons.favorite_outline,
               color: Colors.white,

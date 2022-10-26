@@ -62,7 +62,8 @@ class NotificationHelper {
       iOS: iOSPlatformChannelSpecifics,
     );
 
-    var restaurant = restaurants.restaurants[Random().nextInt(20)];
+    var randomIndex = Random().nextInt(restaurants.restaurants.length);
+    var restaurant = restaurants.restaurants[randomIndex];
     var titleNotification = "<b>Restopedia Update</b>";
     var bodyNotification =
         "<p>Kunjungi restaurant <b>${restaurant.name}</b>, terdapat menu baru dan tentunya dengan harga terjangkau.</p>";
@@ -73,7 +74,7 @@ class NotificationHelper {
       bodyNotification,
       platformChannelSpecifics,
       payload: json.encode(
-        restaurants.toJson(),
+        restaurant.toJson(),
       ),
     );
   }
@@ -81,8 +82,7 @@ class NotificationHelper {
   void configureSelectNotificationSubject(String route) {
     selectNotificationSubject.stream.listen(
       (String payload) async {
-        var data = RestaurantsModel.fromJson(json.decode(payload));
-        var restaurant = data.restaurants[0];
+        var restaurant = RestaurantModel.fromJson(json.decode(payload));
         Navigation.intentWithData(route, restaurant);
       },
     );
