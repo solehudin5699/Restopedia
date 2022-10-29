@@ -140,10 +140,6 @@ class _FavouriteRestaurantState extends State<FavouriteRestaurant> {
       ),
       body: Consumer<DatabaseProvider>(
         builder: (context, state, _) {
-          if (_controllerKeyword.text.isEmpty) {
-            state.getFavouriteRestaurants(null);
-          }
-
           if (state.state == ResultState.hasData) {
             return MasonryGridView.count(
               crossAxisCount: 1,

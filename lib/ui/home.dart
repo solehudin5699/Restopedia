@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/common/enum.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/provider/database.dart';
 import 'package:restaurant_app/provider/restaurant.dart';
 import 'package:restaurant_app/utils/notification_helper.dart';
 import 'package:restaurant_app/widgets/error_message.dart';
@@ -82,15 +83,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/favouriteRestaurant');
-            },
-            icon: const Icon(
-              Icons.favorite_outline,
-              color: Colors.white,
-            ),
-          ),
+          Consumer<DatabaseProvider>(builder: (context, state, _) {
+            return IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/favouriteRestaurant');
+                state.getFavouriteRestaurants(null);
+              },
+              icon: const Icon(
+                Icons.favorite_outline,
+                color: Colors.white,
+              ),
+            );
+          }),
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, '/settings');
