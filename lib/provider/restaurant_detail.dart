@@ -1,21 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/common/enum.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/models/restaurant_detail.dart';
 import 'package:restaurant_app/data/models/review.dart';
-
-enum ResultState {
-  loading,
-  noData,
-  hasData,
-  error,
-  noConnection,
-  loadingAdd,
-  hasDataAdd,
-  errorAdd,
-  noConnectionAdd,
-}
 
 class RestaurantDetailProvider extends ChangeNotifier {
   ApiService apiServices;

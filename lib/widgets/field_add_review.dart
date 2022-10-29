@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/common/enum.dart';
 import 'package:restaurant_app/common/snackbar.dart';
 import 'package:restaurant_app/provider/restaurant_detail.dart';
 
@@ -32,6 +33,10 @@ class _FieldAddReviewState extends State<FieldAddReview> {
 
   @override
   Widget build(BuildContext context) {
+    showSnackbar(String message) {
+      snackbar(context, message);
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -95,9 +100,9 @@ class _FieldAddReviewState extends State<FieldAddReview> {
                         _controllerFieldReview.clear();
                         _controllerFieldName.clear();
                       }
-                      snackbar(context, state.message);
+                      showSnackbar(state.message);
                     } catch (_) {
-                      snackbar(context, state.message);
+                      showSnackbar(state.message);
                     }
                   }
 
