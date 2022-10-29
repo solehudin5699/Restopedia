@@ -90,6 +90,8 @@ class _FavouriteRestaurantState extends State<FavouriteRestaurant> {
                             setState(() {
                               isShowSearchbar = false;
                             });
+                            state.getFavouriteRestaurants(null);
+                            _controllerKeyword.clear();
                           },
                           icon: const Icon(Icons.arrow_back),
                         ),
@@ -138,6 +140,10 @@ class _FavouriteRestaurantState extends State<FavouriteRestaurant> {
       ),
       body: Consumer<DatabaseProvider>(
         builder: (context, state, _) {
+          if (_controllerKeyword.text.isEmpty) {
+            state.getFavouriteRestaurants(null);
+          }
+
           if (state.state == ResultState.hasData) {
             return MasonryGridView.count(
               crossAxisCount: 1,
@@ -149,7 +155,14 @@ class _FavouriteRestaurantState extends State<FavouriteRestaurant> {
               },
             );
           } else if (state.state == ResultState.noData) {
-            return ErrorMessage(message: state.message);
+            return ErrorMessage(
+              message: state.message,
+              icon: const Icon(
+                Icons.announcement_outlined,
+                size: 50,
+                color: Color.fromARGB(255, 255, 65, 59),
+              ),
+            );
           } else {
             return const ErrorMessage(message: 'Terjadi kesalahan');
           }
