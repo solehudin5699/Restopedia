@@ -1,16 +1,28 @@
-# restaurant_app
+# Restopedia <img src="https://img.shields.io/badge/Build%20with-Flutter-0553B1?style=popout&logo=flutter">
 
-A new Flutter project.
+<div align="center">
+    <img width="100%" src="docs/restopedia.png">
+</div>
+<br/>
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- search restaurant,
+- favorite restaurant,
+- restaurant details,
+- user reviews,
+- scheduled notifications
 
-A few resources to get you started if this is your first Flutter project:
+## Dependencies
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- provider: ^6.0.3
+- flutter_local_notifications: ^12.0.2
+- android_alarm_manager_plus: ^2.1.0
+- sqflite: ^2.1.0
+- and others
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo APK
+
+<a href="https://drive.google.com/drive/folders/1p8yyd1I3bUR8Gxy6tP_oH9XDNS9SKQkW?usp=share_link">
+  <img src="https://img.shields.io/badge/Link Download-Restopedia-blue.svg?style=popout"/>
+</a>
