@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/common/snackbar.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/models/restaurants.dart';
 import 'package:restaurant_app/provider/database.dart';
@@ -15,6 +16,10 @@ class RestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    showSnackbar(String message) {
+      snackbar(context, message);
+    }
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -118,9 +123,9 @@ class RestaurantCard extends StatelessWidget {
                       : 'Tambahkan ke favorit',
                   onPressed: () async {
                     if (state.isFavouritedRestaurant(data.id)) {
-                      state.removeFavouriteRestaurant(data.id);
+                      state.removeFavouriteRestaurant(data.id, showSnackbar);
                     } else {
-                      state.addFavouriteRestaurant(data);
+                      state.addFavouriteRestaurant(data, showSnackbar);
                     }
                   },
                   icon: Container(

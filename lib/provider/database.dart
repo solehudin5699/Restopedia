@@ -21,22 +21,28 @@ class DatabaseProvider extends ChangeNotifier {
 
   //methods
   void getFavouriteRestaurants(String? keyword) async {
-    _favouriteRestaurants = await databaseHelper.getFavouriteResto(keyword);
-
-    if (_favouriteRestaurants.isNotEmpty) {
-      _state = ResultState.hasData;
-    } else {
-      _state = ResultState.noData;
-      if (keyword != null) {
-        _message = "Pencarian tidak ditemukan";
+    try {
+      _favouriteRestaurants = await databaseHelper.getFavouriteResto(keyword);
+      if (_favouriteRestaurants.isNotEmpty) {
+        _state = ResultState.hasData;
       } else {
-        _message = "Belum ada restaurant yang difavoritkan";
+        _state = ResultState.noData;
+        if (keyword != null) {
+          _message = "Pencarian tidak ditemukan";
+        } else {
+          _message = "Belum ada restaurant yang difavoritkan";
+        }
       }
+      notifyListeners();
+    } catch (e) {
+      _state = ResultState.error;
+      _message = "Terjadi kesalahan";
+      notifyListeners();
     }
-    notifyListeners();
   }
 
-  void addFavouriteRestaurant(RestaurantModel restaurant) async {
+  void addFavouriteRestaurant(
+      RestaurantModel restaurant, Function onError) async {
     try {
       await databaseHelper.insertFavouriteResto(restaurant);
       getFavouriteRestaurants(null);
@@ -44,6 +50,7 @@ class DatabaseProvider extends ChangeNotifier {
     } catch (e) {
       _state = ResultState.error;
       _message = 'Terjadi kesalahan';
+      onError('Gagal menambahkan ke favorit');
       notifyListeners();
     }
   }
@@ -54,7 +61,7 @@ class DatabaseProvider extends ChangeNotifier {
     return isFavorite;
   }
 
-  void removeFavouriteRestaurant(String id) async {
+  void removeFavouriteRestaurant(String id, Function onError) async {
     try {
       await databaseHelper.removeFavouriteResto(id);
       _favouriteRestaurants.retainWhere((e) => e.id != id);
@@ -68,6 +75,7 @@ class DatabaseProvider extends ChangeNotifier {
     } catch (e) {
       _state = ResultState.error;
       _message = 'Terjadi kesalahan';
+      onError('Gagal menghapus dari favorit');
       notifyListeners();
     }
   }
