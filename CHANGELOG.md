@@ -29,3 +29,4 @@
 - update functional seach favourite resto-[79071c3](https://github.com/solehudin5699/Restopedia/commit/79071c35441fc470dde54909eb4e1544f10b02da)
 - update functionality favourite restaurant-[b07bdd6](https://github.com/solehudin5699/Restopedia/commit/b07bdd608492dc1308e090a5b021cdf5c2d9fdb7)
 - update message & add snackbar error in database provider-[bbc17b2](https://github.com/solehudin5699/Restopedia/commit/bbc17b2ec41ba1b59562469d0595ec5df53e898e)
+- fix testing-[2c81c84](https://github.com/solehudin5699/Restopedia/commit/2c81c84e7e728c4a50385b906f082374bda70977)
